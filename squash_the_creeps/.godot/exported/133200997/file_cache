@@ -1,0 +1,11 @@
+res://art/body.tres::35beeb4de78162e343aea7e923245be2::1740842248::res://.godot/exported/133200997/export-c823853e651294e82bcb3fa9ee3e947b-body.res
+res://art/eye.tres::181f58cc6da21b79e5c2bdc950b5d80b::1740842248::res://.godot/exported/133200997/export-51cd196d238063cbe7814cc6cdf6476b-eye.res
+res://art/mob_body.tres::c2c32f8082c89bcbe08f96d216e4bb7f::1740842248::res://.godot/exported/133200997/export-58b0cc164e8fc866840c9c5c6c34f5a3-mob_body.res
+res://art/mob_eye.tres::7457a69f45dd2322ce9cb4cd507a5ba8::1740842248::res://.godot/exported/133200997/export-064e375db0af8d3bebd056adec204f44-mob_eye.res
+res://art/pupil.tres::f27e1543ccc84907108f03b626db2e13::1740842248::res://.godot/exported/133200997/export-3baec91889270d982a7a39af0d0d5e00-pupil.res
+res://Main.tscn::0fd2bd1b864f52520af22c8dc8ff9e50::1741273094::res://.godot/exported/133200997/export-bcb0d2eb5949c52b6a65bfe9de3e985b-Main.scn
+res://Mob.tscn::0d1c528e055a9670be09296b7e147676::1741262813::res://.godot/exported/133200997/export-81c79e068ff802b9fa31fc076552a1a5-Mob.scn
+res://MusicPlayer.tscn::40310c141d62f9332f998492bd726947::1741262813::res://.godot/exported/133200997/export-97c0b372b720456144fb5b77d11c6794-MusicPlayer.scn
+res://Player.tscn::b3a4a58544e44b395d04fb1b4779a873::1741262813::res://.godot/exported/133200997/export-90e1ff3baa03524a506ff0f7a9d78dcf-Player.scn
+res://PlayerNameSplash.tscn::5542b825e31002dfe67e4e905d6a3ee9::1741273094::res://.godot/exported/133200997/export-acd31529a659638d9ad949393f1d835e-PlayerNameSplash.scn
+res://ui_theme.tres::29cfec331f8db2cd7c4dede2cdda642b::1740842248::res://.godot/exported/133200997/export-2b241728ce609bd392f1fd8ba31aa0ec-ui_theme.res

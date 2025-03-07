@@ -1,0 +1,12 @@
+name: Player Connect
+type: module
+description: 'A module to manage player scores and information via a RESTful API.'
+core_version_requirement: ^11 || ^12
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:rest
+  - drupal:serialization
+  - drupal:user
+  - drupal:field
+configure: playerconnect.settings

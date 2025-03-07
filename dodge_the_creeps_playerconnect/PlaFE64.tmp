@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://f8spwllwpvn6"]
+
+[ext_resource type="Script" path="res://PlayerNameSplash.gd" id="1_gpk5p"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_gpk5p")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_right = 67.0625
+offset_bottom = 31.0
+
+[node name="OKButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="OKButton" to="." method="_on_ok_button_pressed"]

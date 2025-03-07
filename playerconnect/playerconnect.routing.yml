@@ -1,0 +1,16 @@
+playerconnect.create_player:
+  path: '/playerconnect/create-player'
+  defaults:
+    _controller: '\Drupal\playerconnect\Controller\PlayerController::createPlayer'
+    _title: 'Create or Update Player'
+  requirements:
+    _permission: 'access content'
+  methods: [POST]
+
+playerconnect.settings:
+  path: '/admin/config/playerconnect/settings'
+  defaults:
+    _form: '\Drupal\playerconnect\Form\PlayerConnectSettingsForm'
+    _title: 'Player Connect Settings'
+  requirements:
+    _permission: 'administer site configuration'

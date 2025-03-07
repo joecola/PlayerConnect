@@ -1,0 +1,162 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+
+/**
+ * Implements hook_install().
+ */
+function playerconnect_install() {
+  // Create the Player content type.
+  if (!NodeType::load('player')) {
+    $node_type = NodeType::create([
+      'type' => 'player',
+      'name' => 'Player',
+      'description' => 'Content type for player information.',
+    ]);
+    $node_type->save();
+  }
+
+  // Add fields to the Player content type.
+  playerconnect_add_fields();
+
+  // Set display settings for the fields.
+  playerconnect_set_display_settings();
+
+  // Generate a random passkey and save it to the configuration.
+  $passkey = bin2hex(random_bytes(16));
+  \Drupal::configFactory()->getEditable('playerconnect.settings')
+    ->set('passkey', $passkey)
+    ->save();
+}
+
+/**
+ * Adds fields to the Player content type.
+ */
+function playerconnect_add_fields() {
+  $fields = [
+    'playerconnect_current_score' => [
+      'type' => 'integer',
+      'label' => 'Current Score',
+      'description' => 'The current score of the player.',
+      'required' => FALSE,
+    ],
+    'playerconnect_high_score' => [
+      'type' => 'integer',
+      'label' => 'High Score',
+      'description' => 'The highest score achieved by the player.',
+      'required' => FALSE,
+    ],
+    'playerconnect_info' => [
+      'type' => 'text_long',
+      'label' => 'Player Info',
+      'description' => 'Additional information about the player.',
+      'required' => FALSE,
+    ],
+  ];
+
+  foreach ($fields as $field_name => $field_info) {
+    if (!FieldStorageConfig::loadByName('node', $field_name)) {
+      FieldStorageConfig::create([
+        'field_name' => $field_name,
+        'entity_type' => 'node',
+        'type' => $field_info['type'],
+      ])->save();
+
+      FieldConfig::create([
+        'field_name' => $field_name,
+        'entity_type' => 'node',
+        'bundle' => 'player',
+        'label' => $field_info['label'],
+        'description' => $field_info['description'],
+        'required' => $field_info['required'],
+      ])->save();
+    }
+  }
+}
+
+/**
+ * Sets display settings for the fields.
+ */
+function playerconnect_set_display_settings() {
+  // Set form display settings.
+  $form_display = EntityFormDisplay::load('node.player.default');
+  if (!$form_display) {
+    $form_display = EntityFormDisplay::create([
+      'targetEntityType' => 'node',
+      'bundle' => 'player',
+      'mode' => 'default',
+      'status' => TRUE,
+    ]);
+  }
+  $form_display->setComponent('playerconnect_current_score', [
+    'type' => 'number',
+    'weight' => 0,
+  ]);
+  $form_display->setComponent('playerconnect_high_score', [
+    'type' => 'number',
+    'weight' => 1,
+  ]);
+  $form_display->setComponent('playerconnect_info', [
+    'type' => 'text_textarea',
+    'weight' => 2,
+  ]);
+  $form_display->save();
+
+  // Set view display settings.
+  $view_display = EntityViewDisplay::load('node.player.default');
+  if (!$view_display) {
+    $view_display = EntityViewDisplay::create([
+      'targetEntityType' => 'node',
+      'bundle' => 'player',
+      'mode' => 'default',
+      'status' => TRUE,
+    ]);
+  }
+  $view_display->setComponent('playerconnect_current_score', [
+    'label' => 'above',
+    'type' => 'number_integer',
+    'weight' => 0,
+  ]);
+  $view_display->setComponent('playerconnect_high_score', [
+    'label' => 'above',
+    'type' => 'number_integer',
+    'weight' => 1,
+  ]);
+  $view_display->setComponent('playerconnect_info', [
+    'label' => 'above',
+    'type' => 'text_default',
+    'weight' => 2,
+  ]);
+  $view_display->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function playerconnect_uninstall() {
+  // Remove the Player content type.
+  if ($type = NodeType::load('player')) {
+    $type->delete();
+  }
+
+  // Remove fields from the Player content type.
+  $fields = [
+    'playerconnect_current_score',
+    'playerconnect_high_score',
+    'playerconnect_info',
+  ];
+
+  foreach ($fields as $field_name) {
+    if ($field = FieldConfig::loadByName('node', 'player', $field_name)) {
+      $field->delete();
+    }
+
+    if ($storage = FieldStorageConfig::loadByName('node', $field_name)) {
+      $storage->delete();
+    }
+  }
+}
